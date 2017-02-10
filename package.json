@@ -1,0 +1,21 @@
+{
+  "name": "reactjs-f2c-rogue",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "custom-react-scripts": "0.0.23",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^4.1.1"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "rot-js": "^0.6.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

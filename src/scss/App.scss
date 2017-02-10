@@ -1,0 +1,230 @@
+
+$main-font      : 'Audiowide', cursive;
+$secondary-font : 'Aldrich', sans-serif;
+$main-font-size : 12px;
+$secondary-font-size : 20px;
+//Colors
+//App
+$app-background-color  : black;
+$app-border-color      : gold;
+//User interface
+$ui-main-color         : darkgoldenrod;
+$ui-xp-bar-color       : green;
+$ui-hp-bar-color       : red;
+$ui-border-color       : white;
+$ui-background-color   : rgba(128, 128, 128, .2);
+//Help window
+$help-background-color : rgba(255, 255, 255, .9);
+$help-border-color     : darkgreen;
+$help-text-color       : black;
+//Start screen, end screen and win screen
+$screen-primary-color  : white;
+$screen-secondary-color: goldenrod;
+$screen-game-over-color: red;
+
+
+$tile-sheet: '../assets/img/spritesTilesSheet.png';
+$tile-code: (
+  player        : 0,
+  goblin        : 1,
+  dragon        : 2,
+  wall          : 3,
+  ground        : 4,
+  health-potion : 5,
+  long-sword    : 6,
+  leather-armor : 7,
+  warrior-shield: 8,
+  );
+//App dimensions
+$width             : 640px;
+$height            : 480px;
+$border-width      : 2px;
+$tile-size         : 32px;
+$tile-sheet-columns: 3;
+
+//Mixins
+@mixin tile {
+  position  : absolute;
+  display   : block;
+  width     : $tile-size;
+  height    : $tile-size;
+}
+
+@mixin title($color, $font, $font-size) {
+  display   : block;
+  color: $color;
+  font-family: $font;
+  font-size: $font-size;
+}
+
+@mixin ui-text($font, $font-size, $color) {
+  color: $color;
+  font-family: $font;
+  font-size: $font-size;
+}
+
+@mixin ui-div($width, $height, $direction) {
+  width: $width;
+  height: $height;
+  display: flex;
+  flex-direction: $direction;
+  border : $border-width solid $app-border-color;
+}
+
+@mixin bar($width, $height, $color) {
+  width: $width;
+  height: $height;
+  background-color: $color;
+}
+//Entities tiles / sprites
+@each $entity, $code in $tile-code {
+  $x: floor($code % $tile-sheet-columns) * $tile-size; //x position in the sprite tile-sheet
+  $y: floor($code / $tile-sheet-columns) * $tile-size; //y position in the sprite tile-sheet
+  .tile-#{$entity} {
+    @include tile;
+    background:
+      url($tile-sheet)
+      no-repeat 
+      floor(-$x) 
+      floor(-$y);
+  }
+}
+
+.tile-null {
+  @include tile;
+  background-color: black;
+}
+
+.container {
+  width: 940px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1% auto;
+}
+
+.screen {
+  position        : relative;
+  width           : $width;
+  height          : $height;
+  background-color: $app-background-color;
+  border          : $border-width solid $app-border-color;
+  cursor          : crosshair;
+}
+
+.start-screen {
+  @extend .screen;
+  @include title($screen-secondary-color, $secondary-font, $secondary-font-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-screen {
+  @extend .screen;
+  @include title($screen-game-over-color, $secondary-font, $secondary-font-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui-right {
+  @include ui-div(150px, 480px, column);
+  border-left: none;
+  
+}
+.ui-top {
+  @include ui-div(792px, 50px, row);
+  border-bottom: none;
+  align-items: center;
+}
+.ui-bottom {
+  @include ui-div(792px, 110px, column);
+  border-top: none;
+}
+.ui-center {
+  @include ui-div(auto, auto, row);
+  border: none;
+} 
+
+.hp-bar-outer {
+  @include bar(100px, 10px, $app-background-color);
+  border: 1px solid $ui-border-color;
+}
+
+.hp-bar-inner {
+  @include bar(100px, 10px, $ui-hp-bar-color);
+}
+
+.xp-bar-outer {
+  @include bar(100px, 10px, $app-background-color);
+  border: 1px solid $ui-border-color;
+}
+
+.xp-bar-inner {
+  @include bar(100px, 10px, $ui-xp-bar-color);
+}
+
+.ui-stats-info {
+  @include ui-text($main-font, $main-font-size, $ui-main-color);
+}
+
+.stat-container {
+  margin: 5px;
+}
+
+.equipment-slot {
+  width: $tile-size;
+  height: $tile-size;
+  border: 1px solid $ui-border-color;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  position: static;
+}
+
+.inventory-row {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  outline: none;
+  padding: 0;
+  width: $tile-size;
+  height: $tile-size;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid $ui-main-color;
+  color: $screen-secondary-color;
+  background-color: $app-background-color;
+  &:hover {
+    color: $app-background-color;
+    background-color: $app-border-color;
+    a {
+      color: $app-background-color;
+    }
+  }
+}
+
+body{
+  user-select: none;
+  background-color: $app-background-color;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: $screen-secondary-color;
+  &:hover, &:focus {
+    text-decoration: none;
+    color: $app-background-color;
+  }
+  &:visited {
+    color: $screen-secondary-color;
+  }
+}
+
+
+
