@@ -135,9 +135,9 @@ class Actor extends Entity {
   }
 
   attack(target) {
-    let attack = this.getTotalAtk();
+    let atk = this.getTotalAtk();
     let defense = this.getTotalDef();
-    let max = Math.max(0, attack - defense);
+    let max = Math.max(0, atk - defense);
     target.takeDamage(this, 1 + ~~(Math.random() * max)); 
   }
 

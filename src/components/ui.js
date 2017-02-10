@@ -26,11 +26,8 @@ const UiTop= (props) => {
   return (
     <div className="ui-top">
       <div className="stat-container">
-        <p className="ui-stats-info">Coded By Adel Mahjoub</p>
-      </div>
-      <div className="stat-container">
         <button className="btn" title="github">
-          <a href="https://github.com/AdelMahjoub" target="_blank">
+          <a href="https://github.com/AdelMahjoub/roguelike-react-js" target="_blank">
             <i className="fa fa-github" aria-hidden="true"></i>
           </a>
         </button>
@@ -42,7 +39,9 @@ const UiTop= (props) => {
         </button>
         {" "}
         <button className="btn" title="codepen">
-          <i className="fa fa-codepen" aria-hidden="true"></i>
+          <a href="https://codepen.io/SultanCodeCamper/full/MJBMeV/" target="_blank">
+            <i className="fa fa-codepen" aria-hidden="true"></i>
+          </a>
         </button>
       </div>
     </div>
