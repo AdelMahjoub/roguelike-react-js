@@ -144,6 +144,10 @@ class Actor extends Entity {
   takeDamage(target, damage) {
     this.hp -= damage;
     if(this.getHp() <= 0) {
+      if(this.getGenre() === "boss") {
+        target.win = true;
+        console.log(target.win)
+      }
       this.updateXp(target, this.getXp());
       this.map.removeEntity(this);
     }

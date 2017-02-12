@@ -1,6 +1,7 @@
 import React from 'react';
 
 const barWidth = 100;
+const tinyBarWidth = 32;
 
 const UiRight = (props) => {
   return (
@@ -79,9 +80,9 @@ const UiCenter = (props) => {
 }
 
 const HpBar = (props) => {
-  let widthRation = props.hp / props.maxHp;
+  let widthRatio = props.hp / props.maxHp;
   let style = {
-    width: `${barWidth * widthRation}px`
+    width: `${barWidth * widthRatio}px`
   }
   return (
     <div className="stat-container">
@@ -99,10 +100,22 @@ const HpBar = (props) => {
   )
 }
 
-const XpBar = (props) => {
-  let widthRation = props.xp / props.nextXp;
+const HpBarTiny = (props) => {
+  let widthRatio = props.hp / props.maxHp;
   let style = {
-    width: `${barWidth * widthRation}px`
+    width: `${tinyBarWidth * widthRatio}px`,
+  }
+  return (
+    <div className="hp-bar-outer-tiny">
+      <div className="hp-bar-inner-tiny" style={style}/>
+    </div>
+  )
+}
+
+const XpBar = (props) => {
+  let widthRatio = props.xp / props.nextXp;
+  let style = {
+    width: `${barWidth * widthRatio}px`
   }
   return (
     <div className="stat-container">
@@ -219,5 +232,5 @@ const Inventory = (props) => {
   )
 }
 
-export {UiTop, UiBottom, UiRight, UiCenter}
+export {UiTop, UiBottom, UiRight, UiCenter, HpBarTiny}
 

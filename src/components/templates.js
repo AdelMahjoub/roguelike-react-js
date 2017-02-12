@@ -5,7 +5,7 @@ const Templates = {
         name: "you",
         genre: "player",
         maxHp: 40,
-        atk: 1,
+        atk: 2,
         def: 1,
         xp: 0,
         xpToLvlUp: 50,
@@ -30,7 +30,7 @@ const Templates = {
         maxHp: 50,
         hp: 50,
         xp: 100,
-        atk: 15,
+        atk: 10,
         def: 5,
         isDestructible: true
     },

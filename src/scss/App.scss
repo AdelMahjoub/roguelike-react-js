@@ -130,6 +130,15 @@ $tile-sheet-columns: 3;
   align-items: center;
 }
 
+.win-screen {
+  @extend .screen;
+  @include title($screen-secondary-color, $secondary-font, $secondary-font-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .ui-right {
   @include ui-div(150px, 480px, column);
   border-left: none;
@@ -156,6 +165,15 @@ $tile-sheet-columns: 3;
 
 .hp-bar-inner {
   @include bar(100px, 10px, $ui-hp-bar-color);
+}
+
+.hp-bar-outer-tiny {
+  @include bar($tile-size, $tile-size / 16, $app-background-color);
+  
+}
+
+.hp-bar-inner-tiny {
+  @include bar($tile-size, $tile-size / 16, $ui-hp-bar-color);
 }
 
 .xp-bar-outer {

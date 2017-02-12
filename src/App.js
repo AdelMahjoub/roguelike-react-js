@@ -1,5 +1,5 @@
 import React from 'react';
-import { UiTop, UiBottom, UiRight, UiCenter } from './components/ui';
+import { UiTop, UiBottom, UiRight, UiCenter, HpBarTiny } from './components/ui';
 import Templates from './components/templates';
 import { Actor } from './components/entity';
 import dungeon from './components/map';
@@ -23,12 +23,15 @@ const Tile = (props) => {
     top: props.y * tileSize,
     left: props.x * tileSize,
     opacity: props.opacity,
+    color: "white"
   }
   return (
     <span
       style={style}
       id={props.coords}
-      className={props.tile}>
+      className={props.tile}
+    >
+    {props.hpBar}
     </span>
   );
 }
@@ -116,12 +119,22 @@ const PlayScreen = function(props) {
               x={x}
               y={y}
               tile={entity.tileClass}
+              hpBar={
+                entity.getGenre() === ("mob") || entity.getGenre() === ("boss")
+                ?
+                <HpBarTiny
+                hp={entity.getHp()}
+                maxHp={entity.getMaxHp()}
+                y={y}
+                />
+                :
+                ""
+              }
               />
             )
           })
         })
       }
-
       {
       //render darkness / fog of war
         isVisible &&
@@ -157,7 +170,8 @@ class App extends React.Component {
       darkness: true,
       startScreen: true,
       playScreen: false,
-      endScreen: false
+      endScreen: false,
+      win: false
     };
     this.mounted = false; //Become true at first mount
     this.update = this.update.bind(this);
@@ -202,7 +216,8 @@ class App extends React.Component {
           this.setState({
             startScreen: false,
             playScreen: true,
-            endScreen: false
+            endScreen: false,
+            win: false
           });
           sounds.enterDungeon.currentTime = 0;
           sounds.enterDungeon.play();
@@ -216,13 +231,16 @@ class App extends React.Component {
       let newY = player.y + dy;
       player.tryMove(newX, newY, dungeon);
       //If player loose
-      if(player.hp <= 0) {
+      if(player.hp <= 0 || player.win) {
         //Game over screen
         this.setState({
           startScreen: false,
           playScreen: false,
           endScreen: true,
         });
+        if(player.win) {
+          this.setState({win: true});
+        }
         //reset the game
         dungeon.map = [];
         dungeon.entities = [];
@@ -304,7 +322,7 @@ class App extends React.Component {
             {
               this.state.endScreen &&
 
-              <EndScreen />
+              <EndScreen win={this.state.win}/>
             }
             <UiRight 
               hp={player.getHp()}
